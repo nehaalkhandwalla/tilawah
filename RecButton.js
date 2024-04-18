@@ -399,7 +399,7 @@ const PressableImageButton = () => {
       };
       formData.append("file", file);
 
-      const response = await fetch("http://10.47.89.109:8080/transcribe", {
+      const response = await fetch("http://10.47.3.13:8080/transcribe", {
         method: "POST",
         body: formData,
       });
