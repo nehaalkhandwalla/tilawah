@@ -3,6 +3,7 @@ import styles from "./StyleMemorise.js";
 import RecButton from "./RecButton.js";
 import { Audio } from "expo-av";
 import AyahAudioPlayer from "./AyahAudioPlayer";
+import TranscriptionItem from './TranscriptionItem'; // Import the new component
 import {
   Text,
   View,
@@ -14,6 +15,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Memorise({ navigation, route }) {
+  const [selectedAyah, setSelectedAyah] = useState(null);
+  const [buttonShadowColor, setButtonShadowColor] = useState("#FFEBB8");
+  const [similarity, setSimilarity] = useState(0);
+  const [transcriptions, setTranscriptions] = useState([]); // Change to array
   const { surahNumber } = route.params;
   console.log(surahNumber);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +27,13 @@ function Memorise({ navigation, route }) {
   // const surahNumber = 1; // Change to the desired Surah number
   const specialSequence =
     "\u0628\u0650\u0633\u06e1\u0645\u0650 \u0671\u0644\u0644\u0651\u064e\u0647\u0650 \u0671\u0644\u0631\u0651\u064e\u062d\u06e1\u0645\u064e\u0640\u0670\u0646\u0650 \u0671\u0644\u0631\u0651\u064e\u062d\u0650\u06cc\u0645\u0650\n";
+  const handleSimilarity = (sim) => {
+    setSimilarity(sim);
+  };
+
+  useEffect(() => {
+    console.log("Similarity updated:", similarity);
+  }, [similarity]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,11 +64,37 @@ function Memorise({ navigation, route }) {
     }
   };
 
+  const handlePressIn = () => {
+    setButtonShadowColor("red");
+  };
+
+  const handlePressOut = () => {
+    setButtonShadowColor("#FFEBB8");
+  };
+
+  const handleTranscriptionReceived = (transcriptionData) => {
+    console.log("Received transcription:", transcriptionData[0]);
+    console.log("Similarityyyyy:", transcriptionData[1]);
+    console.log('it was a bad idea to give uwais access uwais');
+    console.log('i think you should start your report, by uwais')
+    // Append the new transcription to the existing list of transcriptions
+    setTranscriptions((prevTranscriptions) => [
+      ...prevTranscriptions,
+      { transcription: transcriptionData[0], similarity: transcriptionData[1] },
+    ]);
+  };
+
+  // const handleSimilarity = (sim) => {
+  //   setSimilarity(sim); hello -- uwais
+  //   console.log("SIMILARITYY: ", sim); eh eh -uwais
+  //   console.log(similarity);
+  // };
+
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color="#FFEBB8" />
-        <Text>"Welcome Back!</Text>
+        <Text style={styles.boldText}>Loading your surah :D</Text>
       </View>
     );
   }
@@ -65,7 +103,7 @@ function Memorise({ navigation, route }) {
     <View>
       {/* <Pressable onPress={() => navigation.navigate("Home")}>
         <Text style={styles.nav}> Home </Text>
-      </Pressable> */}
+      </Pressable>*/} 
       <Text style={styles.title}>{`${surahName}`}</Text>
       <View style={styles.container}>
         <ScrollView style={styles.scrolly}>
@@ -74,6 +112,7 @@ function Memorise({ navigation, route }) {
           ) : null}
           {ayahs.map((ayah, index) => (
             <View style={styles.verseWaudio} key={index}>
+              
               {/* {surahNumber !== 1 && ayah.text.includes(specialSequence) ? (
                 <View style={styles.specialSequenceContainer}>
                   <Text style={styles.specialSequence}>
@@ -84,15 +123,15 @@ function Memorise({ navigation, route }) {
               {/* {surahNumber !== 9 ? (
                 <Text style={styles.arabictext}>{specialSequence}</Text>
               ) : null} */}
-
-              <View style={styles.ayah}>
+              <Pressable style={[styles.ayah, selectedAyah === ayah]} onPress={() => setSelectedAyah(ayah)}>
                 {ayah.text.split(" ").map((word, wordIndex) => (
-                  <Text key={wordIndex} style={styles.arabictext}>
+                  <Text key={wordIndex} style={[styles.arabictext, selectedAyah === ayah && styles.boldText]}>
                     {word}
                   </Text>
                 ))}
-                <Text style={styles.arabictext}>{"\u06dd"}</Text>
-              </View>
+                <Text style={[styles.arabictext, selectedAyah === ayah && styles.boldText]}>{"\u06dd"}</Text>
+              </Pressable>
+
               <Pressable>
                 <AyahAudioPlayer ayahNumber={`${ayah.number}`} />
               </Pressable>
@@ -100,8 +139,35 @@ function Memorise({ navigation, route }) {
           ))}
         </ScrollView>
         <View style={styles.bottom}>
-          <Pressable style={styles.button}>
-            <RecButton />
+          <View style={styles.transcriptions}>
+                  <Text style={styles.text}>Transcriptions</Text>
+                  <ScrollView style={styles.scrollyTranscriptions} contentContainerStyle={{ alignItems: 'flex-end' }}>
+                  {/* Map over the transcriptions array to display each transcription */}
+                  {/* // Rendering logic for transcriptions */}
+                  {transcriptions.map((item, index) => (
+                    <Text 
+                      key={index} 
+                      style={[
+                        styles.arabictextTranscription, 
+                        item.similarity !== undefined && item.similarity > 70 ? { color: 'green' } : (item.similarity > 25 ? { color: 'orange' } : { color: 'red' })
+                      ]}
+                    >
+                      {item.transcription ? item.transcription : <Text style={styles.boldText}>Transcriptions will apear here</Text>}
+                      {/* {item.similarity} */}
+                    </Text>
+                  ))}
+
+        </ScrollView>
+                  
+          </View>
+          <Pressable style={[styles.button, { shadowColor: buttonShadowColor }]}>
+            <RecButton 
+            selectedAyah={selectedAyah}
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut} 
+            similarity={handleSimilarity}
+            onTranscriptionReceived={handleTranscriptionReceived}
+          />
           </Pressable>
         </View>
       </View>
