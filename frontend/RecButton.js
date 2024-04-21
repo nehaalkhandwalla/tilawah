@@ -93,7 +93,7 @@ const RecButton = ({ selectedAyah, onPressIn, onPressOut, similarity, onTranscri
       };
       formData.append("file", file);
 
-      const response = await fetch("http://10.47.3.245:8080/transcribe", {
+      const response = await fetch("http://192.168.0.44:8080/transcribe", {
         method: "POST",
         body: formData,
       });

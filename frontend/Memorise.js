@@ -108,6 +108,7 @@ function Memorise({ navigation, route }) {
       (repetition) => repetition === 0
     );
     if (allRepetitionsZero) {
+      console.log("All repetitions are 0, navigating to FinishMemorise");
       navigation.navigate("FinishMemorise");
     }
   };
