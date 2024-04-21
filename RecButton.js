@@ -104,13 +104,14 @@ const RecButton = ({ selectedAyah, onPressIn, onPressOut, similarity, onTranscri
       const simScore = calculateSimilarity(selectedAyah.text, responseBody.transcription);
       // console.log("Hello ", similarity);
       console.log('uwais woz ere');
-      onTranscriptionReceived([responseBody.transcription, simScore]);
+      onTranscriptionReceived([responseBody.transcription, simScore, selectedAyah.number]);
       
       // console.log("simm :", similarity)
       
     } catch (error) {
-      console.error("Failed to send recording to server:", error);
-      Alert.alert("Failed to send recording to server");
+      {selectedAyah === null ? Alert.alert("Please select an ayah") : Alert.alert("Failed to send recording to server")}
+      // console.error("Failed to send recording to server:", error);
+      // Alert.alert("Failed to send recording to server");
     }
   };
 

@@ -16,6 +16,7 @@ import Surahs from "./Surahs.js";
 import Register from "./Register";
 import React, { useState } from "react";
 import Memorise from "./Memorise.js";
+import FinishMemorise from "./FinishMemorise.js";
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,7 @@ export default function App() {
           <Stack.Screen name="Memorise" component={Memorise} />
           <Stack.Screen name="Surahs" component={Surahs} />
           <Stack.Screen name="User" component={User} />
+          <Stack.Screen name="FinishMemorise" component={FinishMemorise} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator

@@ -29,45 +29,45 @@ function Surahs({ navigation }) {
         <SurahComponent
           number="02"
           surah="Al-Baqarah"
-          onPress={() => handleSurahPress({ number: 114 })}
+          onPress={() => handleSurahPress({ number: 2 })}
         />
         <SurahComponent
           number="03"
           surah="Al-Imran"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 3 })}
         />
         <SurahComponent
           number="04"
           surah="An-Nisa"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 4 })}
         />
         <SurahComponent
           number="05"
           surah="Al-Maidah"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 5 })}
         />
         <SurahComponent
           number="06"
           surah="Al-An'am"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 6 })}
         />
         <SurahComponent
           number="07"
           surah="Al-A'raf"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 7 })}
         />
         <SurahComponent
           number="08"
           surah="Al-Anfal"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 8 })}
         />
         <SurahComponent
           number="09"
           surah="At-Tawbah"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 9 })}
         />
-        <SurahComponent number="10" surah="Yunus" onPress={handleSurahPress} />
-        <SurahComponent number="11" surah="Hud" onPress={handleSurahPress} />
+        <SurahComponent number="10" surah="Yunus" onPress={() => handleSurahPress({ number: 10 })} />
+        <SurahComponent number="11" surah="Hud" onPress={() => handleSurahPress({ number: 11 })} />
         <SurahComponent number="12" surah="Yusuf" onPress={handleSurahPress} />
         <SurahComponent
           number="13"
@@ -487,7 +487,8 @@ function Surahs({ navigation }) {
         <SurahComponent
           number="108"
           surah="Al-Kawthar"
-          onPress={handleSurahPress}
+          // onPress={handleSurahPress }
+          onPress={() => handleSurahPress({ number: 108 })}
         />
         <SurahComponent
           number="109"
@@ -519,121 +520,6 @@ function Surahs({ navigation }) {
           surah="An-Nas"
           onPress={handleSurahPress}
         />
-
-        {/* <SurahComponent number="01" surah="Al-Fatiha" />
-        <SurahComponent number="02" surah="Al-Baqarah" />
-        <SurahComponent number="03" surah="Al-Imran" />
-        <SurahComponent number="04" surah="An-Nisa" />
-        <SurahComponent number="05" surah="Al-Maidah" />
-        <SurahComponent number="06" surah="Al-An'am" />
-        <SurahComponent number="07" surah="Al-A'raf" />
-        <SurahComponent number="08" surah="Al-Anfal" />
-        <SurahComponent number="09" surah="At-Tawbah" />
-        <SurahComponent number="10" surah="Yunus" />
-        <SurahComponent number="11" surah="Hud" />
-        <SurahComponent number="12" surah="Yusuf" />
-        <SurahComponent number="13" surah="Ar-Ra'd" />
-        <SurahComponent number="14" surah="Ibrahim" />
-        <SurahComponent number="15" surah="Al-Hijr" />
-        <SurahComponent number="16" surah="An-Nahl" />
-        <SurahComponent number="17" surah="Al-Isra" />
-        <SurahComponent number="18" surah="Al-Kahf" />
-        <SurahComponent number="19" surah="Maryam" />
-        <SurahComponent number="20" surah="Ta-Ha" />
-        <SurahComponent number="21" surah="Al-Anbiya" />
-        <SurahComponent number="22" surah="Al-Hajj" />
-        <SurahComponent number="23" surah="Al-Mu'minun" />
-        <SurahComponent number="24" surah="An-Nur" />
-        <SurahComponent number="25" surah="Al-Furqan" />
-        <SurahComponent number="26" surah="Ash-Shu'ara" />
-        <SurahComponent number="27" surah="An-Naml" />
-        <SurahComponent number="28" surah="Al-Qasas" />
-        <SurahComponent number="29" surah="Al-Ankabut" />
-        <SurahComponent number="30" surah="Ar-Rum" />
-        <SurahComponent number="31" surah="Luqman" />
-        <SurahComponent number="32" surah="As-Sajda" />
-        <SurahComponent number="33" surah="Al-Ahzab" />
-        <SurahComponent number="34" surah="Saba" />
-        <SurahComponent number="35" surah="Fatir" />
-        <SurahComponent number="36" surah="Ya-Sin" />
-        <SurahComponent number="37" surah="As-Saffat" />
-        <SurahComponent number="38" surah="Sad" />
-        <SurahComponent number="39" surah="Az-Zumar" />
-        <SurahComponent number="40" surah="Ghafir" />
-        <SurahComponent number="41" surah="Fussilat" />
-        <SurahComponent number="42" surah="Ash-Shura" />
-        <SurahComponent number="43" surah="Az-Zukhruf" />
-        <SurahComponent number="44" surah="Ad-Dukhan" />
-        <SurahComponent number="45" surah="Al-Jathiyah" />
-        <SurahComponent number="46" surah="Al-Ahqaf" />
-        <SurahComponent number="47" surah="Muhammad" />
-        <SurahComponent number="48" surah="Al-Fath" />
-        <SurahComponent number="49" surah="Al-Hujurat" />
-        <SurahComponent number="50" surah="Qaf" />
-        <SurahComponent number="51" surah="Adh-Dhariyat" />
-        <SurahComponent number="52" surah="At-Tur" />
-        <SurahComponent number="53" surah="An-Najm" />
-        <SurahComponent number="54" surah="Al-Qamar" />
-        <SurahComponent number="55" surah="Ar-Rahman" />
-        <SurahComponent number="56" surah="Al-Waqi'a" />
-        <SurahComponent number="57" surah="Al-Hadid" />
-        <SurahComponent number="58" surah="Al-Mujadila" />
-        <SurahComponent number="59" surah="Al-Hashr" />
-        <SurahComponent number="60" surah="Al-Mumtahina" />
-        <SurahComponent number="61" surah="As-Saff" />
-        <SurahComponent number="62" surah="Al-Jumu'a" />
-        <SurahComponent number="63" surah="Al-Munafiqun" />
-        <SurahComponent number="64" surah="At-Taghabun" />
-        <SurahComponent number="65" surah="At-Talaq" />
-        <SurahComponent number="66" surah="At-Tahrim" />
-        <SurahComponent number="67" surah="Al-Mulk" />
-        <SurahComponent number="68" surah="Al-Qalam" />
-        <SurahComponent number="69" surah="Al-Haqqah" />
-        <SurahComponent number="70" surah="Al-Ma'arij" />
-        <SurahComponent number="71" surah="Nuh" />
-        <SurahComponent number="72" surah="Al-Jinn" />
-        <SurahComponent number="73" surah="Al-Muzzammil" />
-        <SurahComponent number="74" surah="Al-Muddathir" />
-        <SurahComponent number="75" surah="Al-Qiyamah" />
-        <SurahComponent number="76" surah="Al-Insan" />
-        <SurahComponent number="77" surah="Al-Mursalat" />
-        <SurahComponent number="78" surah="An-Naba" />
-        <SurahComponent number="79" surah="An-Nazi'at" />
-        <SurahComponent number="80" surah="Abasa" />
-        <SurahComponent number="81" surah="At-Takwir" />
-        <SurahComponent number="82" surah="Al-Infitar" />
-        <SurahComponent number="83" surah="Al-Mutaffifin" />
-        <SurahComponent number="84" surah="Al-Inshiqaq" />
-        <SurahComponent number="85" surah="Al-Buruj" />
-        <SurahComponent number="86" surah="At-Tariq" />
-        <SurahComponent number="87" surah="Al-A'la" />
-        <SurahComponent number="88" surah="Al-Ghashiyah" />
-        <SurahComponent number="89" surah="Al-Fajr" />
-        <SurahComponent number="90" surah="Al-Balad" />
-        <SurahComponent number="91" surah="Ash-Shams" />
-        <SurahComponent number="92" surah="Al-Lail" />
-        <SurahComponent number="93" surah="Ad-Duha" />
-        <SurahComponent number="94" surah="Ash-Sharh" />
-        <SurahComponent number="95" surah="At-Tin" />
-        <SurahComponent number="96" surah="Al-Alaq" />
-        <SurahComponent number="97" surah="Al-Qadr" />
-        <SurahComponent number="98" surah="Al-Bayyinah" />
-        <SurahComponent number="99" surah="Az-Zalzalah" />
-        <SurahComponent number="100" surah="Al-Adiyat" />
-        <SurahComponent number="101" surah="Al-Qari'ah" />
-        <SurahComponent number="102" surah="At-Takathur" />
-        <SurahComponent number="103" surah="Al-Asr" />
-        <SurahComponent number="104" surah="Al-Humazah" />
-        <SurahComponent number="105" surah="Al-Fil" />
-        <SurahComponent number="106" surah="Quraish" />
-        <SurahComponent number="107" surah="Al-Ma'un" />
-        <SurahComponent number="108" surah="Al-Kawthar" />
-        <SurahComponent number="109" surah="Al-Kafirun" />
-        <SurahComponent number="110" surah="An-Nasr" />
-        <SurahComponent number="111" surah="Al-Masad" />
-        <SurahComponent number="112" surah="Al-Ikhlas" />
-        <SurahComponent number="113" surah="Al-Falaq" />
-        <SurahComponent number="114" surah="An-Nas" /> */}
         <View style={{ height: 30 }}></View>
       </ScrollView>
       {/* {selectedSurah && (

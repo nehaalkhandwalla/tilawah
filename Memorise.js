@@ -3,7 +3,8 @@ import styles from "./StyleMemorise.js";
 import RecButton from "./RecButton.js";
 import { Audio } from "expo-av";
 import AyahAudioPlayer from "./AyahAudioPlayer";
-import TranscriptionItem from './TranscriptionItem'; // Import the new component
+import FinishMemorise from "./FinishMemorise";
+
 import {
   Text,
   View,
@@ -24,6 +25,7 @@ function Memorise({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(true);
   const [ayahs, setAyahs] = useState([]);
   const [surahName, setSurahName] = useState(null);
+  const [ayahRepetitions, setAyahRepetitions] = useState({}); // Initialize with an empty object to track repetitions for each ayah
   // const surahNumber = 1; // Change to the desired Surah number
   const specialSequence =
     "\u0628\u0650\u0633\u06e1\u0645\u0650 \u0671\u0644\u0644\u0651\u064e\u0647\u0650 \u0671\u0644\u0631\u0651\u064e\u062d\u06e1\u0645\u064e\u0640\u0670\u0646\u0650 \u0671\u0644\u0631\u0651\u064e\u062d\u0650\u06cc\u0645\u0650\n";
@@ -45,6 +47,12 @@ function Memorise({ navigation, route }) {
         // setSurahName;
         setAyahs(response.data.data.ayahs);
         setIsLoading(false);
+        // Initialize ayah repetitions with 3 for each ayah
+        const repetitions = {};
+        response.data.data.ayahs.forEach((ayah) => {
+          repetitions[ayah.number] = 3;
+        });
+        setAyahRepetitions(repetitions);
       } catch (error) {
         console.error("Error fetching data:", error);
         setIsLoading(false);
@@ -73,6 +81,7 @@ function Memorise({ navigation, route }) {
   };
 
   const handleTranscriptionReceived = (transcriptionData) => {
+    const [transcription, receivedSimilarity, ayahNumber] = transcriptionData;
     console.log("Received transcription:", transcriptionData[0]);
     console.log("Similarityyyyy:", transcriptionData[1]);
     console.log('it was a bad idea to give uwais access uwais');
@@ -82,6 +91,25 @@ function Memorise({ navigation, route }) {
       ...prevTranscriptions,
       { transcription: transcriptionData[0], similarity: transcriptionData[1] },
     ]);
+    // Decrease ayah repetitions if similarity is above 70
+    console.log("AYAH REPETITIONS for ayah ",transcriptionData[2].numberInSurah, " = ", ayahRepetitions);
+    if (transcriptionData[1] > 70) {
+      setAyahRepetitions((prevRepetitions) => {
+        return {
+          ...prevRepetitions,
+          [ayahNumber]: Math.max(prevRepetitions[ayahNumber] - 1, 0), // Decrease repetitions by 1, but keep it at 0 if it's already 0
+          
+        };
+      });
+    }
+
+    // Check if all ayah repetitions are 0
+    const allRepetitionsZero = Object.values(ayahRepetitions).every(
+      (repetition) => repetition === 0
+    );
+    if (allRepetitionsZero) {
+      navigation.navigate("FinishMemorise");
+    }
   };
 
   // const handleSimilarity = (sim) => {
@@ -131,7 +159,8 @@ function Memorise({ navigation, route }) {
                 ))}
                 <Text style={[styles.arabictext, selectedAyah === ayah && styles.boldText]}>{"\u06dd"}</Text>
               </Pressable>
-
+                  {/* Display remaining repetitions for each ayah */}
+              <Text style={styles.arabictext}>Remaining Repetitions: {ayahRepetitions[ayah.number]}</Text>
               <Pressable>
                 <AyahAudioPlayer ayahNumber={`${ayah.number}`} />
               </Pressable>
@@ -144,18 +173,27 @@ function Memorise({ navigation, route }) {
                   <ScrollView style={styles.scrollyTranscriptions} contentContainerStyle={{ alignItems: 'flex-end' }}>
                   {/* Map over the transcriptions array to display each transcription */}
                   {/* // Rendering logic for transcriptions */}
-                  {transcriptions.map((item, index) => (
-                    <Text 
-                      key={index} 
-                      style={[
-                        styles.arabictextTranscription, 
-                        item.similarity !== undefined && item.similarity > 70 ? { color: 'green' } : (item.similarity > 25 ? { color: 'orange' } : { color: 'red' })
-                      ]}
-                    >
-                      {item.transcription ? item.transcription : <Text style={styles.boldText}>Transcriptions will apear here</Text>}
-                      {/* {item.similarity} */}
-                    </Text>
-                  ))}
+                  {transcriptions.length === 0 ? 
+                    (
+                      <Text style={styles.placeholder}>Transcriptions will appear here</Text> 
+                    ):
+                    (
+                      transcriptions.map((item, index) => 
+                        (
+                          <Text 
+                            key={index} 
+                            style={[
+                              styles.arabictextTranscription, 
+                              item.similarity !== undefined && item.similarity > 70 ? { color: 'green' } : (item.similarity > 25 ? { color: 'orange' } : { color: 'red' })
+                            ]}
+                          >
+                            {item.transcription}
+                            {/* {item.similarity} */}
+                          </Text>
+                        )
+                      )
+                    )
+                  }
 
         </ScrollView>
                   

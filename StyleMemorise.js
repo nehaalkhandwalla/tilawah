@@ -125,11 +125,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   scrollyTranscriptions: {
-    width: 250,
+    width: 240,
     // height: 500,
-    borderColor: 'red',
+    borderColor: '#FFEBB8',
     borderWidth: 1,
+    borderRadius: 10,
     // alignItems: 'flex-start',
+  },
+  placeholder: {
+    color: '#FFEBB8',
+    opacity: 0.5,
+    fontSize: 15,
+    textAlign: 'center',
+    paddingRight: 35,
+    top: 100,
   },
   container: {
     width: 400,
