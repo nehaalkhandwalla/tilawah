@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 50,
     justifyContent: "space-between",
+    color: "#FFEBB8",
   },
   button: {
     justifyContent: "center",
@@ -44,6 +45,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFEBB8",
     padding: 10,
     borderRadius: 10,
+  },
+  input: {
+    color: "#FFEBB8",
+    borderColor: "#FFEBB8",
+    borderRadius: 10,
+    borderWidth: 1,
+    padding: 3,
   },
 });
 export default styles;

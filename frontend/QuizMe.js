@@ -9,6 +9,7 @@ const QuizMe = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [score, setScore] = useState(0); // To keep track of user score
     const totalQuestions = questions.length; // Total number of questions
+    const [numberAnswered, setNumberAnswered] = useState(0);
 
     useEffect(() => {
         const fetchAyahs = async () => {
@@ -28,10 +29,19 @@ const QuizMe = () => {
     }, []);
 
     const handleAnswerSelection = (selectedOption, correctAnswer) => {
+        console.log("Selected option:", selectedOption);  
+        console.log("Correct answer:", correctAnswer);
         if (selectedOption === correctAnswer) {
             setScore(score + 1); // Increase score by 1 if the answer is correct
         }
+        setNumberAnswered(numberAnswered + 1);
+        console.log("Number of questions answered:", numberAnswered);
+        console.log("Score:", score);
         // You can add logic here to move to the next question or handle end of quiz
+        //navigate to FinalScore screen when number of questions answered equals total questions
+        if (numberAnswered === totalQuestions -1) {
+            navigation.navigate("FinalScore", { score: score });
+        }
     };
 
     const generateQuestions = (ayahs) => {

@@ -6,7 +6,8 @@ import styles from './StyleQuizCarousel';
 
 const { width } = Dimensions.get('window');
 
-const QuizCarousel = ({ questions, onAnswerSelected }) => {
+const QuizCarousel = ({ questions, onAnswerSelected, navigation, route }) => {
+    // const [numberAnswered,setNumberAnswered] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Manage which question is being displayed
     const [flipStatus, setFlipStatus] = useState(new Array(questions.length).fill(false));
     const [selectedAnswers, setSelectedAnswers] = useState(new Array(questions.length).fill(null));
@@ -30,7 +31,13 @@ const QuizCarousel = ({ questions, onAnswerSelected }) => {
             // Automatically flip the card upon selecting an answer
             setFlipStatus(flipStatus.map((status, i) => i === index ? true : status));
             // Call the passed-in function from parent to handle answer logic (score update)
-            onAnswerSelected(selectedOption, currentQuestion.answer);
+            
+            // Update the number of questions answered
+            // setNumberAnswered(numberAnswered + 1);
+            // if (numberAnswered === questions.length - 1) {
+            //     // Handle end of quiz logic here
+            //     navigation.navigate("FinalScore", { score: answersCorrectness.filter(Boolean).length });
+            // }
 
             // Optionally, move to the next question after a delay
         setTimeout(() => {
@@ -41,6 +48,7 @@ const QuizCarousel = ({ questions, onAnswerSelected }) => {
             setFlipStatus(newFlipStatus);
         }, 2000); // Adjust time delay as needed
         }
+        return onAnswerSelected(selectedOption, currentQuestion.answer);
     };
 
     return (

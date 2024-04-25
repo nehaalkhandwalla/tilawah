@@ -19,6 +19,7 @@ import Register from "./Register";
 import React, { useState } from "react";
 import Memorise from "./Memorise.js";
 import FinishMemorise from "./FinishMemorise.js";
+import FinalScore from "./FinalScore.js";
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ export default function App() {
 
   const [session, setSession] = useState(null);
 
+
   const toggleDisplay = () => {
     setShowSignUp(!showSignUp);
   };
@@ -35,11 +37,13 @@ export default function App() {
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
+      console.log("Session", session);
     });
 
     // Fetch the initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      console.log("Session2", session);
     });
   }, []);
 
@@ -68,10 +72,17 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Memorise" component={Memorise} />
           <Stack.Screen name="Surahs" component={Surahs} />
-          <Stack.Screen name="User" component={User} />
+          {/* <Stack.Screen name="User" component={User} session={session}/> */}
+
+          <Stack.Screen name="User">
+          {props => <User {...props} session={session} />}
+          </Stack.Screen>
+
           <Stack.Screen name="FinishMemorise" component={FinishMemorise} />
           <Stack.Screen name="QuizMe" component={QuizMe} />
           <Stack.Screen name="QuizCarousel" component={QuizCarousel} />
+          <Stack.Screen name="FinalScore" component={FinalScore} />
+
         </Stack.Navigator>
       ) : (
         <Stack.Navigator
