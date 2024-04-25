@@ -11,6 +11,8 @@ import User from "./User";
 import SignUp from "./SignUp";
 import Home from "./Home";
 import Landing from "./Landing";
+import QuizMe from "./QuizMe";
+import QuizCarousel from "./QuizCarousel";
 import Rec from "./RecButton.js";
 import Surahs from "./Surahs.js";
 import Register from "./Register";
@@ -68,6 +70,8 @@ export default function App() {
           <Stack.Screen name="Surahs" component={Surahs} />
           <Stack.Screen name="User" component={User} />
           <Stack.Screen name="FinishMemorise" component={FinishMemorise} />
+          <Stack.Screen name="QuizMe" component={QuizMe} />
+          <Stack.Screen name="QuizCarousel" component={QuizCarousel} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator

@@ -93,7 +93,7 @@ const RecButton = ({ selectedAyah, onPressIn, onPressOut, similarity, onTranscri
       };
       formData.append("file", file);
 
-      const response = await fetch("http://192.168.0.44:8080/transcribe", {
+      const response = await fetch("http://10.47.2.108:8080/transcribe", {
         method: "POST",
         body: formData,
       });
@@ -123,7 +123,7 @@ const RecButton = ({ selectedAyah, onPressIn, onPressOut, similarity, onTranscri
       similarity(100);
       return;
     }
-    return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength) * 100;
+    return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength) * 100; //percentage of similarity calculated by subtracting the edit distance from the length of the longer string and dividing by the length of the longer string
     // let userSim = ((longerLength - editDistance(longer, shorter)) / parseFloat(longerLength) * 100);
     // // similarity((longerLength - editDistance(longer, shorter)) / parseFloat(longerLength) * 100);
     // similarity(userSim);
@@ -133,7 +133,10 @@ const RecButton = ({ selectedAyah, onPressIn, onPressOut, similarity, onTranscri
     // console.log("sIMVALUE" ,simValue);
   };
 
-  const editDistance = (s1, s2) => {
+  const editDistance = (s1, s2) => { // Calculate the Levenshtein distance between two strings
+    //the edit distance between two strings is the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one string into the other.
+    //the levenstein distance is a metric to measure how apart are two sequences of words.
+    //it is calculated by finding the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into the other.
     s1 = s1.toLowerCase();
     s2 = s2.toLowerCase();
 

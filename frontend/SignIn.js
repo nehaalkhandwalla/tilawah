@@ -71,7 +71,7 @@ const SignIn = ({ toggleDisplay }) => {
           <View>
             <Text style={styles.signIn}>Sign In</Text>
             {/* <Alert message={message} /> */}
-            {message && alert(message)}
+            {/* {message && alert(message)} */}
             {/* {message ? <Text style={styles.message}>{message}</Text> : null} */}
             <TextInput
               style={styles.input}

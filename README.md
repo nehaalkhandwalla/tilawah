@@ -9,8 +9,10 @@ SETTING UP:
 
 RUNNING THE APP:
 1. cd into tilawah and run the command: npm install -g expo-cli
-2. Then run the command: npm install
-3. In a separate terminal window, cd into the directory flask-app and run the file FlaskServer.py (preferably from a virtual environment with python3.9.13)
+2. Then run npm install react-native-swiper
+3. Then run npm install react-native-flip-card
+3. Then run the command: npm install 
+4. In a separate terminal window, cd into the directory flask-app and run the file FlaskServer.py (preferably from a virtual environment with python3.9.13)
 4. ensure the server url is the same as the one being accessed on line 402 of the file RecButton.js
 5. Back in the tilawah terminal, run the command: npx expo start
 

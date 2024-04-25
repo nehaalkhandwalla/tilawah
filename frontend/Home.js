@@ -64,6 +64,7 @@ const Home = ({ navigation }) => {
               backgroundColor: pressed ? "#332F24" : "#4C4637",
             },
           ]}
+          onPress={() => navigation.navigate("QuizMe")}
         >
           <Text style={styles.text}>Quiz Me</Text>
         </Pressable>
