@@ -23,7 +23,9 @@ const QuizCarousel = ({ questions, onAnswerSelected, navigation, route }) => {
 
     // Function to handle answer selection
     const handleAnswerSelection = (index, selectedOption) => {
+        console.log("SelECTED", selectedOption)
         const currentQuestion = questions[currentQuestionIndex];
+        console.log('CorrectQ - ', currentQuestion, 'correctQ.ans - ', currentQuestion.answer)
         if (selectedAnswers[index] === null) { // Only process if no answer has been selected yet
             setSelectedAnswers(selectedAnswers.map((answer, i) => i === index ? selectedOption : answer));
             setAnswersCorrectness(answersCorrectness.map((correct, i) =>
@@ -40,13 +42,13 @@ const QuizCarousel = ({ questions, onAnswerSelected, navigation, route }) => {
             // }
 
             // Optionally, move to the next question after a delay
-        setTimeout(() => {
-            const nextIndex = (currentQuestionIndex + 1) % questions.length;
-            setCurrentQuestionIndex(nextIndex);
-            newFlipStatus = [...flipStatus];
-            newFlipStatus[currentQuestionIndex] = false; // Reset flip status when moving to the next question
-            setFlipStatus(newFlipStatus);
-        }, 2000); // Adjust time delay as needed
+            setTimeout(() => {
+                const nextIndex = (currentQuestionIndex + 1) % questions.length;
+                setCurrentQuestionIndex(nextIndex);
+                newFlipStatus = [...flipStatus];
+                newFlipStatus[currentQuestionIndex] = false; // Reset flip status when moving to the next question
+                setFlipStatus(newFlipStatus);
+            }, 2000); // Adjust time delay as needed
         }
         return onAnswerSelected(selectedOption, currentQuestion.answer);
     };

@@ -27,34 +27,139 @@ const User = ({session, navigation}) => {
     getProfile();
   }, [session]);
 
-  const getProfile = async () => {
-    try {
-      setLoading(true);
 
-      if (!session?.user) {
-        throw new Error("No user on current session");
-      }
+  // export default function Profile({ session }) {
+//   const [loading, setLoading] = useState(true);
+//   const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+//   const [email, setEmail] = useState("");
+  const [fullname, setFullName] = useState("");
+  const [uniEmail, setUniEmail] = useState("");
 
-      let {data, error, status} = await supabase
-        .from("Users")
-        .select("id, email")
-        .eq("id", session.user.id)
-        .single();
+  useEffect(() => {
+    getProfile();
+  }, [session]);
+
+  async function getProfile() {
+    try {
+      setLoading(true);
+
+      if (!session?.user) {
+        throw new Error("No user on the session!");
+      }
+
+      let { data, error, status } = await supabase
+        .from("profiles")
+        .select(`id, username, email`)
+        .eq("id", session.user.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+      if (data) {
+        setUserName(data.username);
+        setEmail(data.email);
+//         setFullName(data.fullname);
+//         setUniEmail(data.uniEmail);
+      }
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function updateProfile() {
+    try {
+      setLoading(true);
+
+      if (!session?.user) throw new Error("No user on the session!");
+
+      let { error } = await supabase.from("profiles").upsert({
+        id: session?.user.id,
+        username: username,
+        // uniEmail: uniEmail,
+      });
+
+      if (error) {
+        throw error;
+      } else {
+        setUserName(username);
+        // setUniEmail(uniEmail);
+        alert("Profile updated successfully");
+      }
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function updatePassword() {
+    try {
+      if (!session?.user) {
+        throw new Error("No user on the session!");
+      }
+
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match!");
+      }
+
+      setLoading(true);
+
+      const { error } = await supabase.auth.updateUser({
+        password: password,
+      });
+
+      if (error) {
+        throw error;
+      } else {
+        alert("Password updated successfully");
+        // console.log("Password updated successfully");
+      }
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+      setPassword("");
+      setConfirmPassword("");
+    }
+  }
+
+
+  // const getProfile = async () => {
+  //   try {
+  //     setLoading(true);
+
+  //     if (!session?.user) {
+  //       throw new Error("No user on current session");
+  //     }
+
+  //     let {data, error, status} = await supabase
+  //       .from("profiles")
+  //       .select("id, email, username")
+  //       .eq("id", session.user.id)
+  //       .single();
     
-      if (error && status !== 406) {
-        throw error;
-      }
-      if (data) {
-        setEmail(data.email);
-        // setUsername(data.username);
-        console.log("data", data);
-      }
-    }catch (error) {
-      console.log("error", error);
-    }finally{
-      setLoading(false);
-    }
-  };
+  //     if (error && status !== 406) {
+  //       throw error;
+  //     }
+  //     if (data) {
+  //       setUserDetails({
+  //         ...userDetails,
+  //         email: data.email,
+  //         username: data.username
+  //       });
+  //     }
+  //   }catch (error) {
+  //     // console.log("error", error);
+  //   }finally{
+  //     setLoading(false);
+  //   }
+  // };
+  // console.log("Email:", email);
 
   const handleSignOut = async () => {
     const { error } = await supabase.auth.signOut();
@@ -134,6 +239,7 @@ const User = ({session, navigation}) => {
           <View style={styles.subDetails}>
             <Text style={styles.text}>Name: </Text>
             <Text style={styles.text}>Email: </Text>
+            <TextInput placeholder="Email" value={email} style={styles.input} />
             <Text style={styles.text}>Username: </Text>
           </View>
           {/* <Pressable

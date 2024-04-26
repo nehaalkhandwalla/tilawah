@@ -6,7 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 
 // const Stack = createStackNavigator();
 
-const Home = ({ navigation }) => {
+const Home = ({ session, navigation }) => {
+  console.log("session2", session.user.user_metadata.username);
   return (
     <View style={styles.container}>
       <Pressable
@@ -21,10 +22,10 @@ const Home = ({ navigation }) => {
         <Ionicons name="settings" size={30} color={"#FFEBB8"} />
       </Pressable>
       <View>
-        <Text style={styles.title}>Welcome User!</Text>
+        <Text style={styles.title}>Welcome {session.user.user_metadata.username}!</Text>
       </View>
       <View>
-        <Pressable
+        {/* <Pressable
           style={({ pressed }) => [
             styles.button,
             {
@@ -34,7 +35,7 @@ const Home = ({ navigation }) => {
           onPress={() => navigation.navigate("Surahs")}
         >
           <Text style={styles.text}>Surah Index</Text>
-        </Pressable>
+        </Pressable> */}
         <Pressable
           //   onPress={() => navigation.navigate("Memorise")}
           style={({ pressed }) => [
@@ -43,7 +44,7 @@ const Home = ({ navigation }) => {
               backgroundColor: pressed ? "#332F24" : "#4C4637",
             },
           ]}
-          onPress={() => navigation.navigate("Surahs")}
+          onPress={() => navigation.navigate("Surahs", {action: "memorise"})}
         >
           <Text style={styles.text}>Memorise</Text>
         </Pressable>
@@ -54,6 +55,7 @@ const Home = ({ navigation }) => {
               backgroundColor: pressed ? "#332F24" : "#4C4637",
             },
           ]}
+          onPress={() => navigation.navigate("Surahs", {action: "test"})}
         >
           <Text style={styles.text}>Test Me</Text>
         </Pressable>

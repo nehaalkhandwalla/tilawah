@@ -7,12 +7,14 @@ import SurahComponent from "./SurahComponent.js";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
-function Surahs({ navigation }) {
+function Surahs({ navigation, route }) {
   const [selectedSurah, setSelectedSurah] = useState(0);
 
   const handleSurahPress = ({ number }) => {
     setSelectedSurah(number);
-    navigation.navigate("Memorise", { surahNumber: number });
+    route.params.action === "memorise" ? navigation.navigate("Memorise", { surahNumber: number }) : navigation.navigate("TestMe", { surahNumber: number });
+    // navigation.navigate("Memorise", { surahNumber: number });
+    // navigation.navigate
     console.log("Surah number:", number);
   };
 
@@ -68,82 +70,82 @@ function Surahs({ navigation }) {
         />
         <SurahComponent number="10" surah="Yunus" onPress={() => handleSurahPress({ number: 10 })} />
         <SurahComponent number="11" surah="Hud" onPress={() => handleSurahPress({ number: 11 })} />
-        <SurahComponent number="12" surah="Yusuf" onPress={handleSurahPress} />
+        <SurahComponent number="12" surah="Yusuf" onPress={() => handleSurahPress({ number: 12 })} />
         <SurahComponent
           number="13"
           surah="Ar-Ra'd"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 13 })}
         />
         <SurahComponent
           number="14"
           surah="Ibrahim"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 14 })}
         />
         <SurahComponent
           number="15"
           surah="Al-Hijr"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 15 })}
         />
         <SurahComponent
           number="16"
           surah="An-Nahl"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 16 })}
         />
         <SurahComponent
           number="17"
           surah="Al-Isra"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 17 })}
         />
         <SurahComponent
           number="18"
           surah="Al-Kahf"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 18 })}
         />
-        <SurahComponent number="19" surah="Maryam" onPress={handleSurahPress} />
-        <SurahComponent number="20" surah="Ta-Ha" onPress={handleSurahPress} />
+        <SurahComponent number="19" surah="Maryam" onPress={() => handleSurahPress({ number: 19 })} />
+        <SurahComponent number="20" surah="Ta-Ha" onPress={() => handleSurahPress({ number: 20 })} />
         <SurahComponent
           number="21"
           surah="Al-Anbiya"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 21 })}
         />
         <SurahComponent
           number="22"
           surah="Al-Hajj"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 22 })}
         />
         <SurahComponent
           number="23"
           surah="Al-Mu'minun"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 23 })}
         />
-        <SurahComponent number="24" surah="An-Nur" onPress={handleSurahPress} />
+        <SurahComponent number="24" surah="An-Nur" onPress={() => handleSurahPress({ number: 24 })} />
         <SurahComponent
           number="25"
           surah="Al-Furqan"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 25 })}
         />
         <SurahComponent
           number="26"
           surah="Ash-Shu'ara"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 26 })}
         />
         <SurahComponent
           number="27"
           surah="An-Naml"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 27 })}
         />
         <SurahComponent
           number="28"
           surah="Al-Qasas"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 28 })}
         />
         <SurahComponent
           number="29"
           surah="Al-Ankabut"
-          onPress={handleSurahPress}
+          onPress={() => handleSurahPress({ number: 29 })}
         />
-        <SurahComponent number="30" surah="Ar-Rum" onPress={handleSurahPress} />
-        <SurahComponent number="31" surah="Luqman" onPress={handleSurahPress} />
+        <SurahComponent number="30" surah="Ar-Rum" onPress={() => handleSurahPress({ number: 30 })} />
+        <SurahComponent number="31" surah="Luqman" onPress={() => handleSurahPress({ number: 31 })} />
         <SurahComponent
           number="32"
           surah="As-Sajda"

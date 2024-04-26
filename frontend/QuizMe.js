@@ -4,12 +4,15 @@ import axios from 'axios';
 import QuizCarousel from './QuizCarousel'; // Assuming this is the correct path
 import styles from './StyleQuizMe';
 
-const QuizMe = () => {
+const QuizMe = ({navigation}) => {
     const [questions, setQuestions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [score, setScore] = useState(0); // To keep track of user score
     const totalQuestions = questions.length; // Total number of questions
     const [numberAnswered, setNumberAnswered] = useState(0);
+    const [selectedOption1, setSelectedOption1] = useState(''); 
+    const [correctAnswer1, setCorrectAnswer1] = useState(''); 
+
 
     useEffect(() => {
         const fetchAyahs = async () => {
@@ -28,15 +31,22 @@ const QuizMe = () => {
         fetchAyahs();
     }, []);
 
+    useEffect(()=>{
+        // console.log("Selected option:", selectedOption1);  
+        // console.log("Correct answer:", correctAnswer1);
+        console.log("Number of questions answered:", numberAnswered);
+        console.log("Score:", score);
+    },[score, numberAnswered])
+
     const handleAnswerSelection = (selectedOption, correctAnswer) => {
-        console.log("Selected option:", selectedOption);  
-        console.log("Correct answer:", correctAnswer);
+        // setSelectedOption1(selectedOption)
+        // setCorrectAnswer1(correctAnswer1)
+        console.log('SELECTED OPTION - ', selectedOption, ' CORRECT ANS -- ', correctAnswer)
         if (selectedOption === correctAnswer) {
             setScore(score + 1); // Increase score by 1 if the answer is correct
         }
         setNumberAnswered(numberAnswered + 1);
-        console.log("Number of questions answered:", numberAnswered);
-        console.log("Score:", score);
+
         // You can add logic here to move to the next question or handle end of quiz
         //navigate to FinalScore screen when number of questions answered equals total questions
         if (numberAnswered === totalQuestions -1) {
@@ -51,20 +61,21 @@ const QuizMe = () => {
             const prevAyah = ayahs[index - 1];
             if (nextAyah) {
                 questions.push({
-                    question: `What comes after: "${ayah.text}"?`,
+                    question: `What comes after: \n\n "${ayah.text}"?`,
                     options: shuffle([nextAyah.text, ...getRandomAyahs(ayahs, index)]),
                     answer: nextAyah.text
                 });
             }
             if (prevAyah) {
                 questions.push({
-                    question: `What comes before: "${ayah.text}"?`,
+                    // to do: join with the question mark
+                    question: `What comes before: \n\n "${ayah.text}"?`,
                     options: shuffle([prevAyah.text, ...getRandomAyahs(ayahs, index)]),
                     answer: prevAyah.text
                 });
             }
         });
-        return questions.slice(0, 10); // limiting to 5 questions for brevity
+        return questions.slice(0, 10); // number of questions to generate
     };
 
     const getRandomAyahs = (ayahs, currentIndex, count = 3) => {
@@ -96,6 +107,8 @@ const QuizMe = () => {
         <View style={styles.container}>
              <QuizCarousel questions={questions} onAnswerSelected={handleAnswerSelection} />
             <Text style={styles.scoreText}>Score: {score} / {totalQuestions}</Text>
+            {/* <Text style={styles.scoreText}>THIS Score: {score} </Text> */}
+            
         </View>
     );
 };

@@ -93,7 +93,7 @@ const RecButton = ({ selectedAyah, onPressIn, onPressOut, similarity, onTranscri
       };
       formData.append("file", file);
 
-      const response = await fetch("http://10.47.2.108:8080/transcribe", {
+      const response = await fetch("http://192.168.0.44:8080/transcribe", {
         method: "POST",
         body: formData,
       });
@@ -109,8 +109,8 @@ const RecButton = ({ selectedAyah, onPressIn, onPressOut, similarity, onTranscri
       // console.log("simm :", similarity)
       
     } catch (error) {
-      {selectedAyah === null ? Alert.alert("Please select an ayah") : Alert.alert("Failed to send recording to server")}
-      // console.error("Failed to send recording to server:", error);
+      // {selectedAyah === null ? Alert.alert("Please select an ayah") : Alert.alert("Failed to send recording to server")}
+      console.error("Failed to send recording to server:", error);
       // Alert.alert("Failed to send recording to server");
     }
   };

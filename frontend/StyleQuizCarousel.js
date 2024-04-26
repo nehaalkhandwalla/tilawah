@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
     },
     question: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#FFEBB8',
         marginBottom: 10,
@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
         width: '90%', // Consistent button width
     },
     buttonText: {
+        marginBottom: -5,
+        fontSize: 20,
         color: '#4C4637',   
         textAlign: 'center',
         fontWeight: 'bold',

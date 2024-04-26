@@ -13,6 +13,7 @@ import Home from "./Home";
 import Landing from "./Landing";
 import QuizMe from "./QuizMe";
 import QuizCarousel from "./QuizCarousel";
+import TestMe from "./TestMe.js";
 import Rec from "./RecButton.js";
 import Surahs from "./Surahs.js";
 import Register from "./Register";
@@ -37,13 +38,13 @@ export default function App() {
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
-      console.log("Session", session);
+      // console.log("Session", session);
     });
 
     // Fetch the initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      console.log("Session2", session);
+      // console.log("Session2", session);
     });
   }, []);
 
@@ -69,7 +70,9 @@ export default function App() {
         >
           {/* <StatusBar style="auto" backgroundColor="#abcdef" /> */}
           {/* <Stack.Screen name="SignIn" component={SignIn} /> */}
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Home" options={{headerShown: false}}>
+          {props => <Home {...props} session={session} />}
+          </Stack.Screen>
           <Stack.Screen name="Memorise" component={Memorise} />
           <Stack.Screen name="Surahs" component={Surahs} />
           {/* <Stack.Screen name="User" component={User} session={session}/> */}
@@ -82,6 +85,7 @@ export default function App() {
           <Stack.Screen name="QuizMe" component={QuizMe} />
           <Stack.Screen name="QuizCarousel" component={QuizCarousel} />
           <Stack.Screen name="FinalScore" component={FinalScore} />
+          <Stack.Screen name="TestMe" component={TestMe} />
 
         </Stack.Navigator>
       ) : (
@@ -100,7 +104,7 @@ export default function App() {
             headerTintColor: "#FFEBB8",
           }}
         >
-          <Stack.Screen name="Landing" component={Landing} />
+          <Stack.Screen name="Landing" component={Landing} options={{headerShown: false}} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
