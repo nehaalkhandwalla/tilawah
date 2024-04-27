@@ -123,7 +123,7 @@ function Memorise({ navigation, route }) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color="#FFEBB8" />
-        <Text style={styles.boldText}>Loading your surah :D</Text>
+        <Text style={styles.arabictext}>Loading your surah :D</Text>
       </View>
     );
   }

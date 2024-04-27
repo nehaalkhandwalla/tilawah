@@ -87,7 +87,7 @@ const AyahAudioPlayer = ({ ayahNumber }) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={toggleAudio}>
-        <Ionicons name={isPlaying ? "pause" : "play"} size={24} color="black" />
+        <Ionicons name={isPlaying ? "pause" : "play"} size={24} color="#191712" />
       </Pressable>
     </View>
   );

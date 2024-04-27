@@ -49,18 +49,18 @@ const User = ({session, navigation}) => {
         throw new Error("No user on the session!");
       }
 
-      let { data, error, status } = await supabase
-        .from("profiles")
-        .select(`id, username, email`)
-        .eq("id", session.user.id)
-        .single();
+      let { data, error, status } = await supabase
+        .from("profiles")
+        .select(`id, username, email`)
+        .eq("id", session.user.id)
+        .single();
 
-      if (error && status !== 406) {
-        throw error;
-      }
-      if (data) {
-        setUserName(data.username);
-        setEmail(data.email);
+      if (error && status !== 406) {
+      throw error;
+      }
+      if (data) {
+      setUserName(data.username);
+      setEmail(data.email);
 //         setFullName(data.fullname);
 //         setUniEmail(data.uniEmail);
       }
@@ -222,7 +222,7 @@ const User = ({session, navigation}) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>User Settings</Text>
+          <Text style={styles.title}>{session.user.user_metadata.username}'s Settings</Text>
         </View>
         <View style={styles.details}>
           {/* <Pressable
@@ -238,9 +238,9 @@ const User = ({session, navigation}) => {
           <Text style={styles.heading}>Profile</Text>
           <View style={styles.subDetails}>
             <Text style={styles.text}>Name: </Text>
-            <Text style={styles.text}>Email: </Text>
-            <TextInput placeholder="Email" value={email} style={styles.input} />
-            <Text style={styles.text}>Username: </Text>
+            <Text style={styles.text}>Email: {session.user.user_metadata.email}</Text>
+            {/* <TextInput placeholder="Email" value={email} style={styles.input} /> */}
+            <Text style={styles.text}>Username: {session.user.user_metadata.username}</Text>
           </View>
           {/* <Pressable
           style={({ pressed }) => [
@@ -255,14 +255,14 @@ const User = ({session, navigation}) => {
         <Text style={styles.heading}>Memorisation Settings</Text>
           <View style={styles.subDetails}>
             <View style= {{flexDirection: 'row'}}>
-            <Text style={styles.text}>Ayah repetitions: </Text>
-            <TextInput
+            <Text style={styles.text}>Ayah repetitions: 3</Text>
+            {/* <TextInput
               style={styles.input}
               value={ayahReps}
               onChangeText={setAyahReps}
               keyboardType="numeric"
               placeholder="E.G. 10"
-            />
+            /> */}
             </View>
             {/* <TextInput
               // style={styles.input}
