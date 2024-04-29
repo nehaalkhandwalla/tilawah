@@ -1,11 +1,11 @@
 
-
 PREREQUISITES:
 1. git is installed
 2. node and npm are installed
 
 SETTING UP:
-1. from terminal, run the command: npm install -g expo-cli
+1. from terminal, cd into a desired directory and run git clone https://github.com/nehaalkhandwalla/tilawah.git
+2. from terminal, run the command: npm install -g expo-cli
 
 RUNNING THE APP:
 1. cd into tilawah and run the command: npm install -g expo-cli
