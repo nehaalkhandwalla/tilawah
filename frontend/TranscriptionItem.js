@@ -1,5 +1,3 @@
-// TranscriptionItem.js
-
 import React from 'react';
 import { Text } from 'react-native';
 import styles from "./StyleMemorise.js";

@@ -19,14 +19,13 @@ function Memorise({ navigation, route }) {
   const [selectedAyah, setSelectedAyah] = useState(null);
   const [buttonShadowColor, setButtonShadowColor] = useState("#FFEBB8");
   const [similarity, setSimilarity] = useState(0);
-  const [transcriptions, setTranscriptions] = useState([]); // Change to array
+  const [transcriptions, setTranscriptions] = useState([]); 
   const { surahNumber } = route.params;
   console.log(surahNumber);
   const [isLoading, setIsLoading] = useState(true);
   const [ayahs, setAyahs] = useState([]);
   const [surahName, setSurahName] = useState(null);
   const [ayahRepetitions, setAyahRepetitions] = useState({}); // Initialize with an empty object to track repetitions for each ayah
-  // const surahNumber = 1; // Change to the desired Surah number
   const specialSequence =
     "\u0628\u0650\u0633\u06e1\u0645\u0650 \u0671\u0644\u0644\u0651\u064e\u0647\u0650 \u0671\u0644\u0631\u0651\u064e\u062d\u06e1\u0645\u064e\u0640\u0670\u0646\u0650 \u0671\u0644\u0631\u0651\u064e\u062d\u0650\u06cc\u0645\u0650\n";
   const handleSimilarity = (sim) => {
@@ -82,10 +81,6 @@ function Memorise({ navigation, route }) {
 
   const handleTranscriptionReceived = (transcriptionData) => {
     const [transcription, receivedSimilarity, ayahNumber] = transcriptionData;
-    console.log("Received transcription:", transcriptionData[0]);
-    console.log("Similarityyyyy:", transcriptionData[1]);
-    console.log('it was a bad idea to give uwais access uwais');
-    console.log('i think you should start your report, by uwais')
     // Append the new transcription to the existing list of transcriptions
     setTranscriptions((prevTranscriptions) => [
       ...prevTranscriptions,
@@ -113,11 +108,7 @@ function Memorise({ navigation, route }) {
     }
   };
 
-  // const handleSimilarity = (sim) => {
-  //   setSimilarity(sim); hello -- uwais
-  //   console.log("SIMILARITYY: ", sim); eh eh -uwais
-  //   console.log(similarity);
-  // };
+
 
   if (isLoading) {
     return (
@@ -130,9 +121,6 @@ function Memorise({ navigation, route }) {
 
   return (
     <View>
-      {/* <Pressable onPress={() => navigation.navigate("Home")}>
-        <Text style={styles.nav}> Home </Text>
-      </Pressable>*/} 
       <Text style={styles.title}>{`${surahName}`}</Text>
       <View style={styles.container}>
         <ScrollView style={styles.scrolly}>
@@ -142,16 +130,7 @@ function Memorise({ navigation, route }) {
           {ayahs.map((ayah, index) => (
             <View style={styles.verseWaudio} key={index}>
               
-              {/* {surahNumber !== 1 && ayah.text.includes(specialSequence) ? (
-                <View style={styles.specialSequenceContainer}>
-                  <Text style={styles.specialSequence}>
-                    {specialSequence.trim()}
-                  </Text>
-                </View>
-              ) : null} */}
-              {/* {surahNumber !== 9 ? (
-                <Text style={styles.arabictext}>{specialSequence}</Text>
-              ) : null} */}
+
               <Pressable style={[styles.ayah, selectedAyah === ayah]} onPress={() => setSelectedAyah(ayah)}>
                 {ayah.text.split(" ").map((word, wordIndex) => (
                   <Text key={wordIndex} style={[styles.arabictext, selectedAyah === ayah && styles.boldText]}>
@@ -160,7 +139,6 @@ function Memorise({ navigation, route }) {
                 ))}
                 <Text style={[styles.arabictext, selectedAyah === ayah && styles.boldText]}>{"\u06dd"}</Text>
               </Pressable>
-                  {/* Display remaining repetitions for each ayah */}
               <Text style={styles.arabictext}>Remaining Repetitions: {ayahRepetitions[ayah.number]}</Text>
               <Pressable>
                 <AyahAudioPlayer ayahNumber={`${ayah.number}`} />
@@ -189,7 +167,6 @@ function Memorise({ navigation, route }) {
                             ]}
                           >
                             {item.transcription}
-                            {/* {item.similarity} */}
                           </Text>
                         )
                       )

@@ -4,7 +4,6 @@ import { Text, View, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-// const Stack = createStackNavigator();
 
 const Home = ({ session, navigation }) => {
   console.log("session2", session.user.user_metadata.username);
@@ -25,19 +24,7 @@ const Home = ({ session, navigation }) => {
         <Text style={styles.title}>Welcome {session.user.user_metadata.username}!</Text>
       </View>
       <View>
-        {/* <Pressable
-          style={({ pressed }) => [
-            styles.button,
-            {
-              backgroundColor: pressed ? "#332F24" : "#4C4637",
-            },
-          ]}
-          onPress={() => navigation.navigate("Surahs")}
-        >
-          <Text style={styles.text}>Surah Index</Text>
-        </Pressable> */}
         <Pressable
-          //   onPress={() => navigation.navigate("Memorise")}
           style={({ pressed }) => [
             styles.button,
             {

@@ -11,12 +11,11 @@ const styles = StyleSheet.create({
     card: {
         width: 350,
         height: 500,
-        // color: '#FFEBB8',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#4C4637',
         borderRadius: 10,
-        padding: 20, // Consistent padding
+        padding: 20, 
     },
     cardCorrect: {
         backgroundColor: 'green',
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#FFEBB8',
         borderRadius: 5,
-        width: '90%', // Consistent button width
+        width: '90%',
     },
     buttonText: {
         marginBottom: -5,
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     selectedButton: {
-        backgroundColor: '#4CAF50', // A different color to indicate selection
+        backgroundColor: '#4CAF50', 
     },
     selectedAnswer: {
         fontSize: 16,
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
         margin: 3
     },
     activeDot: {
-        backgroundColor: '#FFEBB8', // Blue dot for active
+        backgroundColor: '#FFEBB8', // Coloured dot for active
         width: 8,
         height: 8,
         borderRadius: 4,

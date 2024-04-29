@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import axios from 'axios';
-import QuizCarousel from './QuizCarousel'; // Assuming this is the correct path
+import QuizCarousel from './QuizCarousel';
 import styles from './StyleQuizMe';
 
 const QuizMe = ({navigation}) => {
@@ -32,26 +32,21 @@ const QuizMe = ({navigation}) => {
     }, []);
 
     useEffect(()=>{
-        // console.log("Selected option:", selectedOption1);  
-        // console.log("Correct answer:", correctAnswer1);
-        console.log("Number of questions answered:", numberAnswered);
-        console.log("Score:", score);
+        if (totalQuestions!=0){
+            if (numberAnswered === totalQuestions) {
+                navigation.navigate("FinalScore", { score: score });
+            }
+        }
     },[score, numberAnswered])
 
     const handleAnswerSelection = (selectedOption, correctAnswer) => {
-        // setSelectedOption1(selectedOption)
-        // setCorrectAnswer1(correctAnswer1)
-        console.log('SELECTED OPTION - ', selectedOption, ' CORRECT ANS -- ', correctAnswer)
         if (selectedOption === correctAnswer) {
             setScore(score + 1); // Increase score by 1 if the answer is correct
         }
         setNumberAnswered(numberAnswered + 1);
+        setSelectedOption1(selectedOption)
+        setCorrectAnswer1(correctAnswer)
 
-        // You can add logic here to move to the next question or handle end of quiz
-        //navigate to FinalScore screen when number of questions answered equals total questions
-        if (numberAnswered === totalQuestions -1) {
-            navigation.navigate("FinalScore", { score: score });
-        }
     };
 
     const generateQuestions = (ayahs) => {
@@ -68,7 +63,6 @@ const QuizMe = ({navigation}) => {
             }
             if (prevAyah) {
                 questions.push({
-                    // to do: join with the question mark
                     question: `What comes before: \n\n "${ayah.text}"?`,
                     options: shuffle([prevAyah.text, ...getRandomAyahs(ayahs, index)]),
                     answer: prevAyah.text
@@ -107,7 +101,6 @@ const QuizMe = ({navigation}) => {
         <View style={styles.container}>
              <QuizCarousel questions={questions} onAnswerSelected={handleAnswerSelection} />
             <Text style={styles.scoreText}>Score: {score} / {totalQuestions}</Text>
-            {/* <Text style={styles.scoreText}>THIS Score: {score} </Text> */}
             
         </View>
     );

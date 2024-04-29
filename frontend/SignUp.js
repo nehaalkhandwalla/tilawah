@@ -41,31 +41,6 @@ const SignUp = ({ toggleDisplay }) => {
       setPassword("");
       setUsername("");
     }
-
-    // const handleFilledInCredentials = async () => {
-    //   if (!username) {
-    //     alert("Username is required.");
-    //   }
-    //   if (!email) {
-    //     alert("Email is required.");
-    //   }
-    //   if (!password) {
-    //     alert("Password is required.");
-    //   }
-    // };
-
-    // const handleSignUpButtonPress = async () => {
-    //   handleFilledInCredentials();
-    //   handleSignUp();
-    // };
-
-    // if (error) {
-    //   setMessage(error.message);
-    // } else {
-    //   setMessage(
-    //     "Registration successful! Check your email for the confirmation link."
-    //   );
-    // }
   };
 
   return (
@@ -90,7 +65,6 @@ const SignUp = ({ toggleDisplay }) => {
           </Pressable>
           <View style={styles.create}>
             <Text style={styles.createAccount}>Create an Account</Text>
-            {/* {message ? <Text style={styles.message}>{message}</Text> : null} */}
             <TextInput
               style={styles.input}
               onChangeText={setUsername}

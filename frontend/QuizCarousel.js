@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-nati
 import Swiper from 'react-native-swiper';
 import FlipCard from 'react-native-flip-card';
 import styles from './StyleQuizCarousel';
+import { useEffect } from 'react';
+
 
 const { width } = Dimensions.get('window');
 
@@ -13,6 +15,8 @@ const QuizCarousel = ({ questions, onAnswerSelected, navigation, route }) => {
     const [selectedAnswers, setSelectedAnswers] = useState(new Array(questions.length).fill(null));
     const [answersCorrectness, setAnswersCorrectness] = useState(new Array(questions.length).fill(null));
 
+
+    useEffect(()=>{console.log('QUESTION - ', currentQuestionIndex)},[currentQuestionIndex])
     // Function to handle flipping the card
     const toggleFlip = (index) => {
         // Only allow the flip if an answer has been selected
@@ -23,25 +27,16 @@ const QuizCarousel = ({ questions, onAnswerSelected, navigation, route }) => {
 
     // Function to handle answer selection
     const handleAnswerSelection = (index, selectedOption) => {
-        console.log("SelECTED", selectedOption)
         const currentQuestion = questions[currentQuestionIndex];
-        console.log('CorrectQ - ', currentQuestion, 'correctQ.ans - ', currentQuestion.answer)
         if (selectedAnswers[index] === null) { // Only process if no answer has been selected yet
             setSelectedAnswers(selectedAnswers.map((answer, i) => i === index ? selectedOption : answer));
             setAnswersCorrectness(answersCorrectness.map((correct, i) =>
                 i === index ? (questions[i].answer === selectedOption) : correct));
             // Automatically flip the card upon selecting an answer
             setFlipStatus(flipStatus.map((status, i) => i === index ? true : status));
-            // Call the passed-in function from parent to handle answer logic (score update)
-            
-            // Update the number of questions answered
-            // setNumberAnswered(numberAnswered + 1);
-            // if (numberAnswered === questions.length - 1) {
-            //     // Handle end of quiz logic here
-            //     navigation.navigate("FinalScore", { score: answersCorrectness.filter(Boolean).length });
-            // }
 
-            // Optionally, move to the next question after a delay
+            
+
             setTimeout(() => {
                 const nextIndex = (currentQuestionIndex + 1) % questions.length;
                 setCurrentQuestionIndex(nextIndex);
@@ -82,7 +77,7 @@ const QuizCarousel = ({ questions, onAnswerSelected, navigation, route }) => {
                             <TouchableOpacity
                                 key={idx}
                                 style={[
-                                    styles.button,
+                                    styles.button, 
                                     selectedAnswers[index] === option
                                         ? (answersCorrectness[index] ? styles.correctAnswer : styles.incorrectAnswer)
                                         : styles.button

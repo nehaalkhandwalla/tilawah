@@ -50,42 +50,27 @@ const TestMe = ({ navigation, route  }) => {
     }
 
     const handleSimilarity = (similarity) => {
-        // console.log("Similarity:", similarity);
-        // let newStatus = [...ayahStatus];
-        // if (similarity > 70) {
-        //     newStatus[selectedAyahIndex] = 'green'; // Mark this ayah as green
-        //     if (selectedAyahIndex + 1 < ayahs.length) { // If there are more ayahs
-        //         // setSelectedAyahIndex(selectedAyahIndex + 1); // Automatically select the next ayah
-        //         setSelectedAyah(ayahs[selectedAyahIndex + 1]); // Automatically select the next ayah
-        //     }
-        // } else {
-        //     newStatus[selectedAyahIndex] = 'default';
-        // }
-        // setAyahStatus(newStatus);
+
     };
 
-    const handleTranscriptionReceived = (transcriptionData) => {
-        // setTranscriptions((prevTranscriptions) => [
-        //   ...prevTranscriptions,
-        //   { transcription: transcriptionData[0], similarity: transcriptionData[1] },
-        //   console.log("Similarityyyyy:", transcriptionData[1])
-        // ]);
-        let newStatus = [...ayahStatus];
-        if (transcriptionData[1] > 70) {
-         
-            // setAyahColour("green");
-            newStatus[selectedAyahIndex] = 'green'; // Mark this ayah as green
-            console.log("Ayah Status:", newStatus)
-            if (selectedAyahIndex + 1 < ayahs.length) {
-                // setSelectedAyahIndex(selectedAyahIndex + 1); // Automatically select the next ayah
-                setSelectedAyah(ayahs[selectedAyahIndex + 1]); // Automatically select the next ayah
-            }
-        }else {
-            newStatus[selectedAyahIndex] = 'default';
-        }
-        setAyahStatus(newStatus);
-    }
 
+
+    const handleTranscriptionReceived = (transcriptionData) => {
+      let newStatus = [...ayahStatus];
+      if (transcriptionData[1] > 70) {
+          newStatus[selectedAyahIndex] = 'green';
+          console.log("Ayah Status:", newStatus);
+          setSelectedAyahIndex(prevIndex => {
+              const nextIndex = prevIndex + 1 < ayahs.length ? prevIndex + 1 : prevIndex;
+              setSelectedAyah(ayahs[nextIndex]);  // Move to next ayah
+              return nextIndex;
+          });
+      } else {
+          newStatus[selectedAyahIndex] = 'default';
+      }
+      setAyahStatus(newStatus);
+  }
+  
     const handleSelectedAyah = (ayah) => {
         setSelectedAyah(ayah);
     }
@@ -96,20 +81,18 @@ const TestMe = ({ navigation, route  }) => {
             <Text style={styles.title}>{surahName}</Text>
             <ScrollView style={styles.container} contentContainerStyle={{ alignItems: 'flex-end' }}>
             {ayahs.map((ayah, index) => (
-
-                // <Text key={index} style={[styles.ayah, { color: ayahStatus[index] === 'green' ? 'green' : 'white' }]}>
-                //     {ayah.text}
-                //     {"\u06dd"}
-                // </Text>
-                <Pressable style={styles.scrolly}>
-                {ayah.text.split(" ").map((word, wordIndex) => (
-                    <Text key={wordIndex} style={[styles.ayah, { color: ayahStatus[index] === 'green' ? '#FFEBB8' : '#191712' }]}>
-                      {word}
+                <Pressable key={index} style={styles.scrolly}>
+                    {ayah.text.split(" ").map((word, wordIndex) => (
+                        <Text key={wordIndex} style={[styles.ayah, { color: ayahStatus[index] === 'green' ? '#FFEBB8' : '#191712' }]}>
+                          {word}
+                        </Text>
+                    ))}
+                    <Text style={[styles.ayah, { color: ayahStatus[index] === 'green' ? '#FFEBB8' : '#FFEBB8' }]}>
+                        {"\u06dd"}
                     </Text>
-                  ))}
-                  <Text style={[styles.ayah, selectedAyah === ayah && styles.ayah, { color: "#FFEBB8" }]}>{"\u06dd"}</Text>
-                  </Pressable>
+                </Pressable>
             ))}
+
             </ScrollView>
             <Pressable style={[styles.button, { shadowColor: buttonShadowColor }]}>
                 <RecButton 

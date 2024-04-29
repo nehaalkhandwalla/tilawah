@@ -13,7 +13,6 @@ const Landing = () => {
   };
   return (
     <View style={styles.container}>
-      {/* <AppDesc /> */}
       {showSignUp ? (
         <SignUp toggleDisplay={toggleDisplay} />
       ) : (
@@ -23,16 +22,3 @@ const Landing = () => {
   );
 };
 export default Landing;
-
-// {loggedIn ? (
-
-//     {
-//       /* COMMENTED OUT FOR NOW UNTIL THE LOGGED IN FUNCTIONALITY IS IMPLEMENTED */
-//     }
-//      <AppDesc />
-//           {showSignUp ? (
-//             <SignUp toggleDisplay={toggleDisplay} />
-//           ) : (
-//             <SignIn toggleDisplay={toggleDisplay} />
-//           )}
-//      ) :()}
